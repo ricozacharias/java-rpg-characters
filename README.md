@@ -1,7 +1,7 @@
 # Java RPG Characters
 
 This is a simple java console application to manage RPG (role play game) characters with different attributes and equipment.
-It can calculate level up's and the damage which the characters can cause which specific weapons.
+It can calculate level up's, attribute gains from equipped armor and the damage which the characters can cause with specific weapons.
 
 # Test cases
 
