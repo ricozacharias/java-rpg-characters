@@ -24,29 +24,33 @@ public abstract class BaseCharacter {
     protected Weapon.Type[] allowedWeapons; // weapon which specific character can wear
     protected PrimaryAttributes levelUpAttributeBoni;
 
+    // gets character name
     public String getName()
     {
         return this.name;
     }
 
+    // gets character level
     public int getLevel()
     {
         return this.level;
     }
 
+    // initialize character base values
     public BaseCharacter(String name, int level, PrimaryAttributes.AttributType primaryAttribute) {
         this.name = name;
         this.level = level;
         this.primaryAttribute = primaryAttribute;
     }
 
-    public void setAttributes(int vitality, int strength, int dexterity, int intelligence)
-    {
+    // sets characters primary attributes
+    public void setAttributes(int vitality, int strength, int dexterity, int intelligence) {
         this.attributes = new PrimaryAttributes(vitality, strength, dexterity, intelligence);
     }
 
+    // calculates characters DPS (damage per second) based on equipped weapon
     public double getDamagePerSecond() throws InvalidWeaponException {
-        //DPS = Equipment.Weapon DPS * (1 + TotalPrimaryAttribute/100)
+
         var weapon = (Weapon) this.equipment.get(Item.SlotType.Weapon);
 
         double dps = (weapon != null) ? weapon.GetDamagePerSecond() : 1;
@@ -54,18 +58,20 @@ public abstract class BaseCharacter {
         return dps * (1 + (double)this.getTotalAttribute(primaryAttribute) / 100);
     }
 
+    // increase characters level and attribute values
     public void levelUp() {
         this.level++;
         this.attributes.increaseAttributes(this.levelUpAttributeBoni);
     }
 
+    // gets the base character attribute value without attribute bonuses from equipment
     public int getBaseAttribute(PrimaryAttributes.AttributType type)
     {
         return this.attributes.getAttributeValue(type);
     }
 
-    public int getTotalAttribute(PrimaryAttributes.AttributType type)
-    {
+    // gets the total character attribute value with added attribute bonuses from equipment
+    public int getTotalAttribute(PrimaryAttributes.AttributType type) {
         int value = this.getBaseAttribute(type);
 
         for(var item : this.equipment.values().stream()
@@ -78,6 +84,7 @@ public abstract class BaseCharacter {
         return value;
     }
 
+    // adds item to equipment and checks if item fits to character (level + type of item)
     public boolean addEquipment(Item item) throws InvalidItemException {
         if (this.level < item.getRequiredLevel())
             throw new InvalidItemException(String.format("Item needs a min character level of %s!", item.getRequiredLevel()));
@@ -96,8 +103,8 @@ public abstract class BaseCharacter {
         return true;
     }
 
-    public void printEquipment() 
-    {
+    // shows which slot is equipped with which item
+    public void printEquipment() {
         for(Map.Entry<Item.SlotType, Item> entry : this.equipment.entrySet()) {
             Item.SlotType slotType = entry.getKey();
             Item item = entry.getValue();
@@ -106,8 +113,8 @@ public abstract class BaseCharacter {
         }
     }
 
-    public void printCharacter() throws InvalidItemException
-    {
+    // shows basic character statistics
+    public void printCharacter() throws InvalidItemException {
         StringBuilder sb = new StringBuilder();
         sb.append("NewCharacters.Character name: "+this.getName()+"\n");
         sb.append("NewCharacters.Character level: "+this.getLevel()+"\n");

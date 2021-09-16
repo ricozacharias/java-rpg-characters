@@ -13,8 +13,7 @@ public class PrimaryAttributes {
 
     private HashMap<AttributType, Integer> attributes = new HashMap<>();
 
-    public PrimaryAttributes(int vitality, int strength, int dexterity, int intelligence)
-    {
+    public PrimaryAttributes(int vitality, int strength, int dexterity, int intelligence) {
         setAttributeValue(AttributType.Vitality, vitality);
         setAttributeValue(AttributType.Strength, strength);
         setAttributeValue(AttributType.Dexterity, dexterity);
@@ -31,8 +30,7 @@ public class PrimaryAttributes {
         attributes.put(type, value);
     }
 
-    public void increaseAttributes(PrimaryAttributes attributeBoni)
-    {
+    public void increaseAttributes(PrimaryAttributes attributeBoni) {
         increaseAttributes(attributeBoni.getAttributeValue(AttributType.Vitality),
                 attributeBoni.getAttributeValue(AttributType.Strength),
                 attributeBoni.getAttributeValue(AttributType.Dexterity),
@@ -40,8 +38,7 @@ public class PrimaryAttributes {
         );
     }
 
-    public void increaseAttributes(int vitality, int strength, int dexterity, int intelligence)
-    {
+    public void increaseAttributes(int vitality, int strength, int dexterity, int intelligence) {
         this.setAttributeValue(AttributType.Vitality, this.getAttributeValue(AttributType.Vitality) + vitality);
         this.setAttributeValue(AttributType.Strength, this.getAttributeValue(AttributType.Strength) + strength);
         this.setAttributeValue(AttributType.Dexterity, this.getAttributeValue(AttributType.Dexterity) + dexterity);
